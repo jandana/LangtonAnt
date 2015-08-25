@@ -41,7 +41,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="cl.jandana.langtonant.util.PanelDinamico" name="panel">
+    <Container class="cl.jandana.langtonant.util.DynamicPanel" name="panel">
 
       <Layout>
         <DimensionLayout dim="0">

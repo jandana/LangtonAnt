@@ -1,4 +1,3 @@
-
 package cl.jandana.langtonant.logic;
 
 /**
@@ -8,25 +7,28 @@ package cl.jandana.langtonant.logic;
 public class Board {
 
     private int columnas, filas;
-    private Node[][] matrizNodo;
+    private Node[][] NodeBoard;
 
     public Board(int columnas, int filas) {
         this.columnas = columnas;
         this.filas = filas;
-        matrizNodo = new Node[columnas][filas];
+        NodeBoard = new Node[columnas][filas];
         for (int x = 0; x < columnas; x++) {
             for (int y = 0; y < filas; y++) {
-                matrizNodo[x][y] = new Node();
+                NodeBoard[x][y] = new Node();
+                NodeBoard[x][y].setX(x);
+                NodeBoard[x][y].setY(y);
+
             }
         }
     }
 
     public void print() {
-        for (int i = 0; i < matrizNodo.length; i++) {
-            for (int j = 0; j < matrizNodo.length; j++) {
-                System.out.print("Vector: " + matrizNodo[i][j].getVector().elementAt(0).toString());
-                System.out.print(" Vector: " + matrizNodo[i][j].getVector().elementAt(1).toString());
-                System.out.print(" Vector: " + matrizNodo[i][j].getVector().elementAt(2).toString());
+        for (int i = 0; i < NodeBoard.length; i++) {
+            for (int j = 0; j < NodeBoard.length; j++) {
+                System.out.print("Vector: " + NodeBoard[i][j].getVector().elementAt(0).toString());
+                System.out.print(" Vector: " + NodeBoard[i][j].getVector().elementAt(1).toString());
+                System.out.print(" Vector: " + NodeBoard[i][j].getVector().elementAt(2).toString());
                 System.out.println("");
             }
             System.out.println("");
@@ -35,7 +37,7 @@ public class Board {
     }
 
     public Node getNodo(int x, int y) {
-        return matrizNodo[x][y];
+        return NodeBoard[x][y];
     }
 
     public int getColumnas() {
@@ -54,11 +56,12 @@ public class Board {
         this.filas = filas;
     }
 
-    public Node[][] getMatriz() {
-        return matrizNodo;
+    public Node[][] getNodeBoard() {
+        return NodeBoard;
     }
 
-    public void setMatriz(Node[][] matriz) {
-        this.matrizNodo = matriz;
+    public void setNodeBoard(Node[][] NodeBoard) {
+        this.NodeBoard = NodeBoard;
     }
+
 }

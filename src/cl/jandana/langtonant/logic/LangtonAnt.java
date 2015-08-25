@@ -5,8 +5,7 @@
  */
 package cl.jandana.langtonant.logic;
 
-import cl.jandana.langtonant.util.PanelDinamico;
-import java.util.Random;
+import cl.jandana.langtonant.util.DynamicPanel;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +17,14 @@ import java.util.logging.Logger;
 public class LangtonAnt implements Runnable {
 
     private boolean running;
-    private PanelDinamico panel;
+    private final DynamicPanel panel;
     private final Board board;
     private Thread runner;
     private int x;
     private int y;
     private int direction;
 
-    public LangtonAnt(Board board, PanelDinamico panel) {
+    public LangtonAnt(Board board, DynamicPanel panel) {
         this.board = board;
         this.panel = panel;
         x = board.getFilas() / 2;
@@ -33,7 +32,7 @@ public class LangtonAnt implements Runnable {
         direction = 0;
     }
 
-//    public void setDatos(Board board, PanelDinamico panel) {
+//    public void setDatos(Board board, DynamicPanel panel) {
 //        this.board = board;
 //        this.panel = panel;
 //    }
@@ -48,12 +47,17 @@ public class LangtonAnt implements Runnable {
 
     @Override
     public void run() {
-    
+
         while (running) {
+            int x = this.x;
+            int y = this.y;
             updatePosition();
-            panel.render(board, 1);
-            //Solo para efecto visual reelentizar la animacion 
-          
+            panel.render(board, x, y);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(LangtonAnt.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -68,26 +72,27 @@ public class LangtonAnt implements Runnable {
 
     private void updatePosition() {
         Vector vWhite = new Vector();
-        vWhite.addElement((double)1);
-        vWhite.addElement((double)1);
-        vWhite.addElement((double)1);
+        vWhite.addElement((double) 1);
+        vWhite.addElement((double) 1);
+        vWhite.addElement((double) 1);
         Vector vBlack = new Vector();
-        vBlack.addElement((double)0);
-        vBlack.addElement((double)0);
-        vBlack.addElement((double)0);
+        vBlack.addElement((double) 0);
+        vBlack.addElement((double) 0);
+        vBlack.addElement((double) 0);
         // Si esta en un cuadrado blanco
         if (board.getNodo(x, y).getVector().equals(vWhite)) {
             // Cambia  a negro
-            board.getMatriz()[x][y] = new Node(vBlack);
+            board.getNodeBoard()[x][y] = new Node(vBlack);
             // Gira 90 grados a la derecha
             turnRight();
             // Avanza un cuadrado
             Forward();
         }
         // Si esta en un cuadrado negro
-        if(board.getNodo(x, y).getVector().equals(vBlack)){
-              // Cambia  a blanco
-            board.getMatriz()[x][y] = new Node(vWhite);
+        if (board.getNodo(x, y).getVector().equals(vBlack)) {
+            // Cambia  a blanco
+            board.getNodeBoard()[x][y] = new Node(vWhite);
+
             // Gira 90 grados a la derecha
             turnLeft();
             // Avanza un cuadrado
@@ -112,25 +117,17 @@ public class LangtonAnt implements Runnable {
     }
 
     private void Forward() {
-        if (direction == 0) {
-            if (y > 0) {
-                y--;
-            }
+        if (direction == 0 && y > 0) {
+            y--;
         }
-        if (direction == 1) {
-            if (x < board.getFilas()) {
-                x++;
-            }
+        if (direction == 1 && x < board.getFilas()) {
+            x++;
         }
-        if (direction == 2) {
-            if (y < board.getFilas()) {
-                y++;
-            }
+        if (direction == 2 && y < board.getFilas()) {
+            y++;
         }
-        if (direction == 3) {
-            if (x > 0) {
-                x--;
-            }
+        if (direction == 3 && x > 0) {
+            x--;
         }
     }
 }

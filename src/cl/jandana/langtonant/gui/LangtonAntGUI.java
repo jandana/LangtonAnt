@@ -12,18 +12,15 @@ public class LangtonAntGUI extends javax.swing.JFrame {
     private final int columnas = 80;
     private final int filas = 80;
     private static LangtonAnt langtonAnt;
-    private static Board matriz;
+    private static Board board;
 
     public LangtonAntGUI() {
         initComponents();
-        matriz = new Board(columnas, filas);
+        board = new Board(columnas, filas);
         //muestra el panel
         panel.getImagen();
-        //dibuja en el panel la matriz que va por parametro 
-        // panel.render(matriz, 0);//renderizacion  inicial
-        langtonAnt = new LangtonAnt(matriz, panel);
-       
-
+        panel.init(board);
+        langtonAnt = new LangtonAnt(board, panel);
     }
 
     /**
@@ -35,7 +32,7 @@ public class LangtonAntGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel = new cl.jandana.langtonant.util.PanelDinamico();
+        panel = new cl.jandana.langtonant.util.DynamicPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +79,6 @@ public class LangtonAntGUI extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private cl.jandana.langtonant.util.PanelDinamico panel;
+    private cl.jandana.langtonant.util.DynamicPanel panel;
     // End of variables declaration//GEN-END:variables
 }
