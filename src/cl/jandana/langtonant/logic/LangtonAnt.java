@@ -32,10 +32,6 @@ public class LangtonAnt implements Runnable {
         direction = 0;
     }
 
-//    public void setDatos(Board board, DynamicPanel panel) {
-//        this.board = board;
-//        this.panel = panel;
-//    }
     public void start() {
         if (board != null) {
             runner = new Thread(this);
@@ -129,5 +125,9 @@ public class LangtonAnt implements Runnable {
         if (direction == 3 && x > 0) {
             x--;
         }
+        if(x==0||y==0||x==board.getFilas()||y==board.getColumnas()){
+            running=false;
+        }
+        
     }
 }

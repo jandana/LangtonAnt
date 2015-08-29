@@ -9,8 +9,8 @@ import cl.jandana.langtonant.logic.Board;
  */
 public class LangtonAntGUI extends javax.swing.JFrame {
 
-    private final int columnas = 80;
-    private final int filas = 80;
+    private final int columnas = 100;
+    private final int filas = 100;
     private static LangtonAnt langtonAnt;
     private static Board board;
 
